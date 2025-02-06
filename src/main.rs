@@ -7,9 +7,17 @@ use rand::Rng;
 use ferris_says::say;
 
 fn main() {
+    let difficulty: i32; // Minel lejjebb annal nehezebb, minel feljebb annal konnyebb!
+    println!("Before you start the game you NEED to set the difficulty!");
+    let mut set_diff = String::new();
+    stdin().read_line(&mut set_diff).expect("Nem jo!");
+    let set_diff = set_diff.trim().parse::<i32>().expect("Nem jo!");
+
+    println!("Setting difficulty: {}", set_diff);
+    difficulty = set_diff;
+
     println!("You enter the dungeon!");
     println!("Write a w to move forward!");
-    let difficulty = 3; // Minel lejjebb annal nehezebb, minel feljebb annal konnyebb!
     
     let rat = Rat {
         hp: 5,
