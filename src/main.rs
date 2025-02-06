@@ -11,7 +11,7 @@ fn main() {
     println!("Before you start the game you NEED to set the difficulty!");
     let mut set_diff = String::new();
     stdin().read_line(&mut set_diff).expect("Nem jo!");
-    let set_diff = set_diff.trim().parse::<i32>().expect("Nem jo!");
+    let set_diff: i32 = set_diff.trim().parse().expect("Nem jo!");
 
     println!("Setting difficulty: {}", set_diff);
     difficulty = set_diff;
