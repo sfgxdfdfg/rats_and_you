@@ -1,7 +1,7 @@
 mod structs;
 mod items;
-use crate::items::*;
 use crate::structs::*;
+use crate::items::*;
 use std::io::*;
 use std::process::exit;
 use std::cmp::Ordering;
@@ -32,40 +32,41 @@ fn main() {
         hp: 20,
         damage: 5
     };
-    going_forward(progress.tile, difficulty, rat.hp, rat.damage, player.hp, player.damage);
+    going_forward(progress.tile, difficulty, rat.hp, rat.damage, player.hp, player.damage, false);
 }
 
-fn going_forward(progress: i32, diff: i32, rhp: i32, rdamage: i32, php: i32, pd: i32) {
+fn going_forward(progress: i32, diff: i32, rhp: i32, rdamage: i32, php: i32, pd: i32, pu: bool) {
+    let mut tsc = rand::rng().random_range(4..=6);
+    if pu == true {
+        tsc = 0
+    }
     let mut forward_button = String::new();
     stdin().read_line(&mut forward_button).expect("Nem jo!");
     let f = forward_button.trim();
-    forward(f, progress, diff, rhp, rdamage, php, pd);
+    forward(f, progress, diff, rhp, rdamage, php, pd, tsc);
 }
 
-fn forward(f: &str, mut p: i32, diff: i32, rhp: i32, rdamage: i32, php: i32, pd: i32) {
-    match f {
+fn forward(f: &str, mut p: i32, diff: i32, rhp: i32, rdamage: i32, php: i32, pd: i32, tsc: i32) {
+    match f.trim() {
         "w" => {
             p += 1;
-            println!("{}", p);
+            println!("progress: {}", p);
             println!("you advanced 1 tile!\n");
             let rat_spawn_chance = rand::rng().random_range(1..=10);
-            // let tsc = rand::rng().random_range(1..=10);
-            //
-            // match tsc.cmp(&diff) {
-            //     Ordering::Less => {
-            //         println!("You found an axe!");
-            //         found_an_item(pd, diff, rhp, rdamage, php, pd);
-            //     },
-            //     Ordering::Greater => going_forward(p, diff, rhp, rdamage, php, pd),
-            //     Ordering::Equal => going_forward(p, diff, rhp, rdamage, php, pd),
-            // }
-            
+
+            if tsc == 5 {
+                item_found( p, diff, rhp, rdamage, php, pd);
+            }
+            // Debug start
+            println!("tsc: {}", tsc);
+            // Debug end
+
             // Debug start
             println!("rsc: {}", rat_spawn_chance);
             // Debug end
             match rat_spawn_chance.cmp(&diff) {
-                Ordering::Less => going_forward(p, diff, rhp, rdamage, php, pd),
-                Ordering::Equal => going_forward(p, diff, rhp, rdamage, php, pd),
+                Ordering::Less => going_forward(p, diff, rhp, rdamage, php, pd, true),
+                Ordering::Equal => going_forward(p, diff, rhp, rdamage, php, pd, true),
                 Ordering::Greater => {
                     println!("You encountered a rat!");
                     fight_with_rat(rhp, rdamage, diff, php, pd, p);
@@ -90,20 +91,6 @@ fn forward(f: &str, mut p: i32, diff: i32, rhp: i32, rdamage: i32, php: i32, pd:
     }
 }
 
-// fn found_an_item(mut pd: i32, diff: i32, rhp: i32, rdamage: i32, php: i32, pd_before: i32) {
-//     println!("Do you want to pick it up?");
-//     let mut choice = String::new();
-//     stdin().read_line(&mut choice).expect("Nem jo!");
-//
-//     match choice.trim() {
-//         "y" => {
-//             pd = 7;
-//             going_forward(diff, rhp, rdamage, php, pd, pd_before);
-//         }
-//         _ => exit(0)
-//     }
-// }
-
 fn fight_with_rat(mut rhp: i32, rdamage: i32, diff: i32, mut php: i32, pd: i32, p:i32) {
     let attack_chance = rand::rng().random_range(1..=10);
     // Debug start
@@ -124,7 +111,7 @@ fn fight_with_rat(mut rhp: i32, rdamage: i32, diff: i32, mut php: i32, pd: i32, 
                 if rhp == 0 {
                     println!("You defeated the rat!\n");
                     rhp = 5;
-                    going_forward(p, diff, rhp, rdamage, php, pd);
+                    going_forward(p, diff, rhp, rdamage, php, pd, true);
                 } else {
                     println!("The rat is not dead!");
                     fight_with_rat(rhp, rdamage, diff, php, pd, p);
