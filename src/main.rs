@@ -10,8 +10,9 @@ use ferris_says::say;
 
 fn main() {
     let difficulty: i32; // Minel lejjebb annal nehezebb, minel feljebb annal konnyebb!
-    println!("Before you start the game you NEED to set the difficulty!");
     let mut set_diff = String::new();
+    println!("Before you start the game you NEED to set the difficulty!");
+    let _ = stdout().flush();
     stdin().read_line(&mut set_diff).expect("Nem jo!");
     let set_diff: i32 = set_diff.trim().parse().expect("Nem jo!");
 
