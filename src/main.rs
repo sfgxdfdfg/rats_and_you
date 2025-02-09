@@ -13,8 +13,8 @@ fn main() {
     let mut set_diff = String::new();
     println!("Before you start the game you NEED to set the difficulty!");
     let _ = stdout().flush();
-    stdin().read_line(&mut set_diff).expect("Nem jo!");
-    let set_diff: i32 = set_diff.trim().parse().expect("Nem jo!");
+    stdin().read_line(&mut set_diff).expect("Not good!");
+    let set_diff: i32 = set_diff.trim().parse().expect("Not good!");
 
     println!("Setting difficulty: {}", set_diff);
     difficulty = set_diff;
@@ -42,7 +42,7 @@ fn going_forward(progress: i32, diff: i32, rhp: i32, rdamage: i32, php: i32, pd:
         tsc = 0
     }
     let mut forward_button = String::new();
-    stdin().read_line(&mut forward_button).expect("Nem jo!");
+    stdin().read_line(&mut forward_button).expect("Not good!");
     let f = forward_button.trim();
     forward(f, progress, diff, rhp, rdamage, php, pd, tsc);
 }
@@ -99,7 +99,7 @@ fn fight_with_rat(mut rhp: i32, rdamage: i32, diff: i32, mut php: i32, pd: i32, 
     // Debug end
     println!("Type f to fight!");
     let mut choice = String::new();
-    stdin().read_line(&mut choice).expect("Nem jo!");
+    stdin().read_line(&mut choice).expect("Not good!");
     let choice = choice.trim();
     match choice {
         "f" => match attack_chance.cmp(&diff) {
