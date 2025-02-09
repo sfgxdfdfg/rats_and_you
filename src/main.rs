@@ -1,7 +1,7 @@
 mod structs;
 mod items;
 use crate::structs::*;
-use crate::items::*;
+// use crate::items::*;
 use std::io::*;
 use std::process::exit;
 use std::cmp::Ordering;
@@ -54,9 +54,9 @@ fn forward(f: &str, mut p: i32, diff: i32, rhp: i32, rdamage: i32, php: i32, pd:
             println!("you advanced 1 tile!\n");
             let rat_spawn_chance = rand::rng().random_range(1..=10);
 
-            if tsc == 5 {
-                item_found( p, diff, rhp, rdamage, php, pd);
-            }
+            // if tsc == 5 {
+            //     item_found( p, diff, rhp, rdamage, php, pd);
+            // }
             // Debug start
             println!("tsc: {}", tsc);
             // Debug end
