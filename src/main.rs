@@ -7,6 +7,7 @@ use std::process::exit;
 use std::cmp::Ordering;
 use rand::Rng;
 use ferris_says::say;
+use viuer::{print_from_file, Config};
 
 fn main() {
     let difficulty: i32; // Minel lejjebb annal nehezebb, minel feljebb annal konnyebb!
@@ -73,6 +74,16 @@ fn forward(f: &str, mut p: i32, diff: i32, rhp: i32, rdamage: i32, php: i32, pd:
                     fight_with_rat(rhp, rdamage, diff, php, pd, p);
                 }
             };
+        },
+        "print_image" => {
+            let conf = Config {
+                // Set dimensions.
+                width: Some(80),
+                height: Some(25),
+                ..Default::default()
+            };
+
+            print_from_file("images/logo.png", &conf).expect("Not good!");
         },
         "ferris" => {
             let stdout = stdout();
