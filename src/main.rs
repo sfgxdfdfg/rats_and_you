@@ -83,7 +83,7 @@ fn forward(f: &str, mut p: i32, diff: i32, rhp: i32, rdamage: i32, php: i32, pd:
                 ..Default::default()
             };
 
-            print_from_file("images/logo.png", &conf).expect("Not good!");
+            print_from_file("images/test_image.png", &conf).expect("Not good!");
         },
         "ferris" => {
             let stdout = stdout();
